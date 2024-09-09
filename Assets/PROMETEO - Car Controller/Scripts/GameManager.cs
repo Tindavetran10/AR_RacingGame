@@ -1,19 +1,24 @@
 using UnityEngine;
+using UnityEngine.InputSystem.EnhancedTouch;
 
 namespace PROMETEO___Car_Controller.Scripts
 {
     public class GameManager : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
-        {
+        [SerializeField] private GameObject prefab;
+        [SerializeField] private Camera arCamera;
+        [SerializeField] private LayerMask layersToInclude;
         
+        private GameObject carController;
+
+        private void Awake()
+        {
+            EnhancedTouchSupport.Enable();
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
-        
+            //var activeTouches = EnhancedTouchSupport.GetActiveTouches();
         }
     }
 }
