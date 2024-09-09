@@ -86,11 +86,11 @@ public class PrometeoCarController : MonoBehaviour
       [Space(20)]
       //[Header("Sounds")]
       [Space(10)]
-      //The following variable lets you to set up sounds for your car such as the car engine or tire screech sounds.
+      //The following variable lets you set up sounds for your car such as the car engine or tire screech sounds.
       public bool useSounds = false;
       public AudioSource carEngineSound; // This variable stores the sound of the car engine.
       public AudioSource tireScreechSound; // This variable stores the sound of the tire screech (when the car is drifting).
-      float initialCarEngineSoundPitch; // Used to store the initial pitch of the car engine sound.
+      private float initialCarEngineSoundPitch; // Used to store the initial pitch of the car engine sound.
 
     //CONTROLS
 
@@ -124,30 +124,31 @@ public class PrometeoCarController : MonoBehaviour
       /*
       IMPORTANT: The following variables should not be modified manually since their values are automatically given via script.
       */
-      Rigidbody carRigidbody; // Stores the car's rigidbody.
-      float steeringAxis; // Used to know whether the steering wheel has reached the maximum value. It goes from -1 to 1.
-      float throttleAxis; // Used to know whether the throttle has reached the maximum value. It goes from -1 to 1.
-      float driftingAxis;
-      float localVelocityZ;
-      float localVelocityX;
-      bool deceleratingCar;
-      bool touchControlsSetup = false;
+      private Rigidbody carRigidbody; // Stores the car's rigidbody.
+      private float steeringAxis; // Used to know whether the steering wheel has reached the maximum value. It goes from -1 to 1.
+      private float throttleAxis; // Used to know whether the throttle has reached the maximum value. It goes from -1 to 1.
+      private float driftingAxis;
+      private float localVelocityZ;
+      private float localVelocityX;
+      private bool deceleratingCar;
+
+      private bool touchControlsSetup = false;
       /*
       The following variables are used to store information about sideways friction of the wheels (such as
       extremumSlip,extremumValue, asymptoteSlip, asymptoteValue and stiffness). We change this values to
       make the car to start drifting.
       */
-      WheelFrictionCurve FLwheelFriction;
-      float FLWextremumSlip;
-      WheelFrictionCurve FRwheelFriction;
-      float FRWextremumSlip;
-      WheelFrictionCurve RLwheelFriction;
-      float RLWextremumSlip;
-      WheelFrictionCurve RRwheelFriction;
-      float RRWextremumSlip;
+      private WheelFrictionCurve FLwheelFriction;
+      private float FLWextremumSlip;
+      private WheelFrictionCurve FRwheelFriction;
+      private float FRWextremumSlip;
+      private WheelFrictionCurve RLwheelFriction;
+      private float RLWextremumSlip;
+      private WheelFrictionCurve RRwheelFriction;
+      private float RRWextremumSlip;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
       //In this part, we set the 'carRigidbody' value with the Rigidbody attached to this
       //gameObject. Also, we define the center of mass of the car with the Vector3 given
@@ -157,7 +158,7 @@ public class PrometeoCarController : MonoBehaviour
 
       //Initial setup to calculate the drift value of the car. This part could look a bit
       //complicated, but do not be afraid, the only thing we're doing here is to save the default
-      //friction values of the car wheels so we can set an appropiate drifting value later.
+      //friction values of the car wheels so we can set an appropriate drifting value later.
       FLwheelFriction = new WheelFrictionCurve ();
         FLwheelFriction.extremumSlip = frontLeftCollider.sidewaysFriction.extremumSlip;
         FLWextremumSlip = frontLeftCollider.sidewaysFriction.extremumSlip;
@@ -352,8 +353,7 @@ public class PrometeoCarController : MonoBehaviour
         }
 
       }
-
-
+      
       // We call the method AnimateWheelMeshes() in order to match the wheel collider movements with the 3D meshes of the wheels.
       AnimateWheelMeshes();
 
@@ -485,7 +485,7 @@ public class PrometeoCarController : MonoBehaviour
 
     // This method apply positive torque to the wheels in order to go forward.
     public void GoForward(){
-      //If the forces aplied to the rigidbody in the 'x' asis are greater than
+      //If the forces applied to the rigidbody in the 'x' asis are greater than
       //3f, it means that the car is losing traction, then the car will start emitting particle systems.
       if(Mathf.Abs(localVelocityX) > 2.5f){
         isDrifting = true;
@@ -529,7 +529,7 @@ public class PrometeoCarController : MonoBehaviour
 
     // This method apply negative torque to the wheels in order to go backwards.
     public void GoReverse(){
-      //If the forces aplied to the rigidbody in the 'x' asis are greater than
+      //If the forces applied to the rigidbody in the 'x' asis are greater than
       //3f, it means that the car is losing traction, then the car will start emitting particle systems.
       if(Mathf.Abs(localVelocityX) > 2.5f){
         isDrifting = true;
@@ -665,7 +665,7 @@ public class PrometeoCarController : MonoBehaviour
       }
 
       // Whenever the player uses the handbrake, it means that the wheels are locked, so we set 'isTractionLocked = true'
-      // and, as a consequense, the car starts to emit trails to simulate the wheel skids.
+      // and, as a consequence, the car starts to emit trails to simulate the wheel skids.
       isTractionLocked = true;
       DriftCarPS();
 
@@ -720,14 +720,13 @@ public class PrometeoCarController : MonoBehaviour
     public void RecoverTraction(){
       isTractionLocked = false;
       driftingAxis -= Time.deltaTime / 1.5f;
-      if(driftingAxis < 0f){
-        driftingAxis = 0f;
-      }
+      if(driftingAxis < 0f) driftingAxis = 0f;
 
       //If the 'driftingAxis' value is not 0f, it means that the wheels have not recovered their traction.
       //We are going to continue decreasing the sideways friction of the wheels until we reach the initial
       // car's grip.
-      if(FLwheelFriction.extremumSlip > FLWextremumSlip){
+      if(FLwheelFriction.extremumSlip > FLWextremumSlip)
+      {
         FLwheelFriction.extremumSlip = FLWextremumSlip * handbrakeDriftMultiplier * driftingAxis;
         frontLeftCollider.sidewaysFriction = FLwheelFriction;
 
@@ -742,7 +741,9 @@ public class PrometeoCarController : MonoBehaviour
 
         Invoke(nameof(RecoverTraction), Time.deltaTime);
 
-      }else if (FLwheelFriction.extremumSlip < FLWextremumSlip){
+      }
+      else if (FLwheelFriction.extremumSlip < FLWextremumSlip)
+      {
         FLwheelFriction.extremumSlip = FLWextremumSlip;
         frontLeftCollider.sidewaysFriction = FLwheelFriction;
 

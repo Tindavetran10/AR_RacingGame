@@ -3,10 +3,8 @@
 public class CameraFollow : MonoBehaviour {
 
 	public Transform carTransform;
-	[Range(1, 10)]
-	public float followSpeed = 2;
-	[Range(1, 10)]
-	public float lookSpeed = 5;
+	[Range(1, 10)] public float followSpeed = 2;
+	[Range(1, 10)] public float lookSpeed = 5;
 
 	private Vector3 initialCameraPosition;
 	private Vector3 initialCarPosition;

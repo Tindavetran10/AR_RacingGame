@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/PROMETEO - Car Controller/Scenes/Mobile Devices Demo.unity
     guid: 136749ef7a3080548b1664e996c901e6
-  m_configObjects: {}
+  m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 532f69f2de1f4dd49bd8400eac10307b, type: 2}
+    UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 02e6255524223774e8da77156782aed2, type: 2}
+    UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 18d1311ef56cdae40847f0cba442f0c8, type: 2}
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: e2f96a3268bf73f43968ba2b53e36a55, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: f766ae165f3c11f4fbeaf762bd72f57f, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: e2c1f4ec31dc27b4892f5757e462308f, type: 2}
