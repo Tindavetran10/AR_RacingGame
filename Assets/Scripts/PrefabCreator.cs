@@ -26,14 +26,5 @@ public class PrefabCreator : MonoBehaviour
             dragon = Instantiate(dragonPrefab, trackedImage.transform);
             dragon.transform.position += prefabOffset;
         }
-        
-        foreach (var trackedImage in obj.updated)
-        {
-            
-        }
-
-        foreach (var trackedImage in obj.removed)
-        {
-        }
     }
 }
