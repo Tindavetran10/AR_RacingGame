@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/PROMETEO - Car Controller/Scenes/Mobile Devices Demo.unity
-    guid: 136749ef7a3080548b1664e996c901e6
+    path: Assets/Scenes/MainSceneAR.unity
+    guid: 001f218f05f3b5a43b8053fa7f455bc9
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 532f69f2de1f4dd49bd8400eac10307b, type: 2}
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 02e6255524223774e8da77156782aed2, type: 2}
